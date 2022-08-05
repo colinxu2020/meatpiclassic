@@ -1,4 +1,3 @@
-﻿# 今天先改到这里了，明天继续！
 import time as tm
 import os
 import json
