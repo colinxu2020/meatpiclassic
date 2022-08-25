@@ -2,6 +2,8 @@ import time as tm
 import os
 import json
 import traceback
+
+from settings import Settings
 	
 try:
 	import webbrowser
@@ -18,25 +20,6 @@ def clear():
         os.system('clear')
         
 print('\nInitializing your personal settings...')
-class Settings:
-    @classmethod
-    def load_settings(cls):
-        with open('Meatpi_Settings.json', 'r') as fp:
-            cls.settings=json.load(fp)
-            
-    @classmethod
-    def update_settings(cls):
-        with open('Meatpi_Settings.json', 'w') as fp:
-            json.dump(cls.settings, fp)
-            
-    @classmethod
-    def init_settings(cls):
-        try:
-            cls.load_settings()
-        except FileNotFoundError:
-            cls.settings = [1,1,-1,0.6,input('Please input your username (will be saved):')]
-            cls.update_settings()
-    name = ['声音','报错重启','已关闭此设置','功能时差','用户名']
     
 nowin = 0
 clear()
@@ -47,7 +30,7 @@ try:
 except ModuleNotFoundError:
     nowin = 1
     Settings.settings[0] = 0
-    Settings.update_settings()
+    Settings.store_settings()
     print('WARNING\nThe "winsound" module is not found in your computer.\nSound has been disabled automatically.')
     input('Press Enter to continue')
 
@@ -55,7 +38,6 @@ def badfunction(k):
     for i in range(2,k):
         if k%i == 0:
             return i
-            break
 
 def isprimebad(k):
     if k==1:
@@ -66,12 +48,6 @@ def isprimebad(k):
             if k%i == 0:
                 res = 0
         return res
-
-def read(k):
-    print()
-    print(Settings.name[k])
-    print('目前状态:',Settings.settings[k])
-    Settings.settings[k] = eval(input('输入新值:'))
 
 
 def ok(now,s):
@@ -605,22 +581,23 @@ abs()  绝对值''')
             print('正确率：',ri/q*100,'%')
             print('T值：%d (作者亲测227)'%(int(tlen/ttime*ri/q*100)))
         elif m == '11':
-            bl = int(input("你要选一个从0到n的数，让电脑猜你选的是哪个数，请输入n:"))
-            q = str(bl)
-            nm = 2
-            ql = len(q)
-            q = int(q)
+            print('因为Colinxu2020实在搞不懂A97_QWQ是怎么让下面的n被声明为List类型的，故而Colinxu2020只得假设会出现错误，把本功能放入维护功能中')
+            while input('了解？(Y/N)')=='N':
+                pass
+            raise RuntimeError('维护中...')
+            n2 = int(input("你要选一个从0到n的数，让电脑猜你选的是哪个数，请输入n:"))
+            copyn=n
             a = ''
-            while q != 0:
-                w = q%nm
+            while copyn != 0:
+                w = copyn%2
                 if w > 10:
+                    print('')
                     w = l[n.index(w)]
                 a += str(w)
-                q = int(q/nm)
+                copyn = copyn//2
             a = a[::-1]
             l = len(a)
-            print('请选一个从0到%d的数，记在心里，想好了按回车'%(bl),end='')
-            input()
+            input(f'请选一个从0到{b1}的数，记在心里，想好了按回车')
             inp = []
             ls = []
             for i in range(0,2**l):
@@ -762,7 +739,7 @@ ax² + bx + c = 0''')
             ls = [0,0,0,0,0,0,0,0,0,0]
             qu = int(input('要计算到小数点后第几位？'))
             co,k, a, b, a1, b1 = -1,2, 4, 1, 12, 4
-            while 1:
+            while True:
                 p, q, k = k*k, 2*k+1, k+1
                 a, b, a1, b1 = a1, b1, p*a+q*a1, p*b+q*b1
                 d, d1 = a/b, a1/b1
@@ -858,7 +835,7 @@ ax² + bx + c = 0''')
                             t.goto(lsb.index(s[1:])*20+10,lsa.index(s[0])*20+10)
                 print('电脑赢了！！！')
             else:
-                while 1:
+                while True:
                     t.color('red')
                     m = 1
                     for i in keypoint:
@@ -931,7 +908,7 @@ ax² + bx + c = 0''')
                     t.write(i//15+11,font=('Arial',8))
                     t.fd(16)
                     t.down()
-            while 1:
+            while True:
                 inp = input('''1.把一个格子涂上颜色
 2.把从 x1,y1(左下角) 到 x2,y2(右上角) 的格子涂上颜色
 3.退出画板
@@ -1124,7 +1101,7 @@ ax² + bx + c = 0''')
                             t.goto(lsb.index(s[1:])*20+10,lsa.index(s[0])*20+10)
                 print('电脑赢了！！！')
             else:
-                while 1:
+                while True:
                     t.color('red')
                     m = 1
                     for i in keypoint:
@@ -1198,7 +1175,7 @@ ax² + bx + c = 0''')
                     print('.',end='')
                 f -= 1
                 print()
-            while 1:
+            while True:
                 typ = r.randint(1,9)
                 score += blockcol[typ]*2
                 print('方块:')
@@ -1325,7 +1302,7 @@ ax² + bx + c = 0''')
                     if ls[i][j]==1:
                         lei[i][j] = -1
             print('一共%d个雷'%(tot))
-            while 1:
+            while True:
                 cnt = 0
                 print('  123456789012345')
                 for i in range(1,16):
@@ -1703,11 +1680,11 @@ ax² + bx + c = 0''')
         elif m == '42':
             n = len(Settings.settings)
             for i in range(n):
-                read(i)
-            Settings.update_settings()
+                Settings.ask_and_update_single_settings(i)
+            Settings.store_settings()
         elif m == '43':
             Settings.settings = [nowin,1,-1,0.6,'anonymous']
-            Settings.update_settings()
+            Settings.store_settings()
         elif m == '44':
             score = 0
             ops = ['w','a','s','d']
@@ -1986,7 +1963,7 @@ ax² + bx + c = 0''')
             webbrowser.open('https://cdn.luogu.com.cn/upload/image_hosting/0vdhm9qn.png?x-oss-process=image/resize,m_lfit,h_5100,w_6750')
         elif m == '56':
             last = 0.0
-            while 1:
+            while True:
                 k = 1658814180-tm.time()
                 if last != k:
                     last = k
@@ -1997,7 +1974,7 @@ ax² + bx + c = 0''')
             tm.sleep(k)
             webbrowser.open('https://www.bilibili.com/video/BV1VB4y197c1/')
         elif m == '58':
-            while 1:
+            while True:
                 input('Press enter to get the current meatpi standard time ')
                 print()
                 now = tm.time()
@@ -2027,7 +2004,7 @@ ax² + bx + c = 0''')
 
 if __name__=='__main__':
     print(COPYRIGHT)
-    while 1:
+    while True:
         clear()
         try:
            main()
