@@ -1,38 +1,21 @@
 import time as tm
 import os
-import json
+import webbrowser
 import traceback
+import math
+import keyword
 
 from settings import Settings
+import crossplatform
 	
-try:
-	import webbrowser
-except ModuleNotFoundError:
-	print('Please Download Require Library:')
-	print('    webbroswer')
-	
-COPYRIGHT= 'Copyright(c) 2022 dgncx Org.\nAll Rights Reserved.\n\n'
 
-def clear():
-    if os.name == 'nt':
-        os.system('cls')
-    else:
-        os.system('clear')
+COPYRIGHT= 'Copyright(c) 2022 dgncx Org.\nAll Rights Reserved.\n\n'
         
 print('\nInitializing your personal settings...')
     
-nowin = 0
-clear()
 Settings.init_settings()
+crossplatform.clear()
 
-try:
-    import winsound
-except ModuleNotFoundError:
-    nowin = 1
-    Settings.settings[0] = 0
-    Settings.store_settings()
-    print('WARNING\nThe "winsound" module is not found in your computer.\nSound has been disabled automatically.')
-    input('Press Enter to continue')
 
 def badfunction(k):
     for i in range(2,k):
@@ -169,14 +152,14 @@ def playhf(tm):
     for mp in hfms:
         stage = hfms.index(mp)
         tm.sleep(1)
-        clear()
+        crossplatform.clear()
         tm.sleep(1)
         player = players[stage]
         box = boxes[stage]
         targ = targs[stage]
         boxfn = 0
         while not(boxfn) or player != targ:
-            clear()
+            crossplatform.clear()
             print("STAGE <%d>"%(stage+1))
             for i in range(9):
                 for j in range(11):
@@ -217,12 +200,8 @@ def playhf(tm):
 
 
 def main():
-    if Settings.settings[0]:
-        winsound.Beep(375,375)
+    crossplatform.winsound.Beep(375,375)
     shf = 0
-    import random as r
-    import keyword as kw
-    import math
     do21 = 0
     ss = '未设置数据'
     while True:
@@ -240,7 +219,7 @@ def main():
         else:
             print('-> 4.豪van的小游戏“推箱子”！！！')
         bm = input('''填正确的序号 如 3：''')
-        clear()
+        crossplatform.clear()
         if bm == '1':
             print(r'''---> 01.普通计算器
 ---> 02.质数判断器,包括以下功能：
@@ -313,7 +292,7 @@ def main():
                 playhf(tm)
                 continue
         m = input('''填正确的序号 如 02：''')
-        clear()
+        crossplatform.clear()
         if m == '01':
             print('''特殊运算符号：
 %  取余
@@ -546,8 +525,8 @@ abs()  绝对值''')
                 print(cd)
                 tm.sleep(1)
             for n in range(1,q+1):
-                a = r.randint(1,100)
-                b = r.randint(1,100)
+                a = random.randint(1,100)
+                b = random.randint(1,100)
                 start = tm.time()
                 print('第%i道题：%i + %i = '%(n,a,b),end='')
                 re_i = int(input(''))
@@ -569,7 +548,7 @@ abs()  绝对值''')
                 print(cd)
                 tm.sleep(1)
             for n in range(1,q+1):
-                kwc = r.choice(kw.kwlist)
+                kwc = random.choice(keyword.kwlist)
                 print(kwc,end=' 请打出相同的单词:')
                 start = tm.time()
                 kwcin = input()
@@ -845,7 +824,7 @@ ax² + bx + c = 0''')
                             s = i
                             t.goto(lsb.index(s[1:])*20+10,lsa.index(s[0])*20+10)
                     if m:
-                        cc = r.randint(1,4)
+                        cc = random.randint(1,4)
                         if cc == 1 and ok(s,chr(ord(s[0])-1)+s[1:]):
                             print('电脑决定走到',chr(ord(s[0])-1)+s[1:])
                             s = chr(ord(s[0])-1)+s[1:]
@@ -1005,18 +984,18 @@ ax² + bx + c = 0''')
                 for i in range(5):
                     print()
         elif m == '23':
-            if not(Settings.settings[0]):
-                print('你没打开声音。')
+            if crossplatform.nowin:
+                print('声音功能在非Windows系统上不可用。')
                 tm.sleep(0.8)
                 continue
             print("键盘上q-u,z-k分别对应低音1到高音1,键盘上的2,3,5,6,7,s,d,g,h,j分别对应低音1到高音1间的所有升降音,空格代表空拍")
-            a = ['q','2','w','3','e','r','5','t','6','y','7','u','z','s','x','d','c','v','g','b','h','n','j','m','k']
+            a = ['q','2','w','3','e','random','5','t','6','y','7','u','z','s','x','d','c','v','g','b','h','n','j','m','k']
             s = input()
             for j in s:
                 if j != ' ':
                     x = int(245*2**(a.index(j)/12))
                     print(j)
-                    winsound.Beep(x,200)
+                    crossplatform.winsound.Beep(x,200)
                     for i in range(4000000):
                         pppp=1
                 else:
@@ -1111,7 +1090,7 @@ ax² + bx + c = 0''')
                             s = i
                             t.goto(lsb.index(s[1:])*20+10,lsa.index(s[0])*20+10)
                     if m:
-                        cc = r.randint(1,4)
+                        cc = random.randint(1,4)
                         if cc == 1 and ok2(s,chr(ord(s[0])-1)+s[1:]):
                             print('电脑决定走到',chr(ord(s[0])-1)+s[1:])
                             s = chr(ord(s[0])-1)+s[1:]
@@ -1151,7 +1130,7 @@ ax² + bx + c = 0''')
         elif m == '26':
             print('电脑将随机生成一个n位数，你每次猜一个n位数。电脑会告诉你对了几个数字。')
             n = int(input('n是几？'))
-            x = str(r.randint(10**(n-1),10**n-1))
+            x = str(random.randint(10**(n-1),10**n-1))
             a = input('你猜是几？')
             while a != x:
                 n1 = 0
@@ -1176,7 +1155,7 @@ ax² + bx + c = 0''')
                 f -= 1
                 print()
             while True:
-                typ = r.randint(1,9)
+                typ = random.randint(1,9)
                 score += blockcol[typ]*2
                 print('方块:')
                 for i in range(3):
@@ -1255,7 +1234,7 @@ ax² + bx + c = 0''')
                     tm.sleep(1)
         elif m == '29':
             x = input('电脑显示一个"[回车]"后请立即按回车，有5~10s的准备时间，现在按回车开始:')
-            tm.sleep(r.randint(5,10))
+            tm.sleep(random.randint(5,10))
             s = tm.time()
             input('[回车]')
             e = tm.time()
@@ -1263,7 +1242,7 @@ ax² + bx + c = 0''')
         elif m == '30':
             x = int(input('随机下限:'))
             y = int(input('随机上限:'))
-            print(r.randint(x,y-1)+r.random())
+            print(random.randint(x,y-1)+random.random())
         elif m == '31':
             n = int(input("多少个数据?"))
             sum = 0
@@ -1278,7 +1257,7 @@ ax² + bx + c = 0''')
                 t1 = []
                 t2 = []
                 for j in range(1,18):
-                    t1.append(r.randint(0,3) == 0)
+                    t1.append(random.randint(0,3) == 0)
                     t2.append(0)
                 ls.append(t1)
                 f.append([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
@@ -1361,7 +1340,7 @@ ax² + bx + c = 0''')
             for i in range(turn):
                 print('第%d轮'%(i+1))
                 p = int(input('你出什么(0:石头 1:剪刀 2:布)?'))
-                c = r.randint(0,2)
+                c = random.randint(0,2)
                 print('电脑出%s'%(name[c]))
                 tw += winner[p][c]
             if tw > 0:
@@ -1509,13 +1488,13 @@ ax² + bx + c = 0''')
                             break
                         if ls[ti][j]:
                             u = 0
-                    r = 1
+                    random = 1
                     for tj in range(j+1,y+1):
                         nut = '0'*(1-tj//10)+str(tj)
                         if le+nut in bc:
                             break
                         if ls[i][tj]:
-                            r = 0
+                            random = 0
                     ur = 1
                     for dur in range(1,min(x-i,y-j)+1):
                         let = chr(ord('A')+x-(i+dur))
@@ -1524,7 +1503,7 @@ ax² + bx + c = 0''')
                             break
                         if ls[i+dur][j+dur]:
                             ur = 0
-                    if u and r and ur:
+                    if u and random and ur:
                         ls[i][j] = 1
             for i in range(x,0,-1):
                 for j in range(1,y+1):
@@ -1537,12 +1516,12 @@ ax² + bx + c = 0''')
         elif m == '40':
             q = input('是否读剧情?(不读:0,读:1):')
             print('\n')
-            corr = r.randint(1,16)
+            corr = random.randint(1,16)
             ch = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]
             cl = ch[:corr]+ch[corr+1:]
             num = [0]
             while len(ch)>1:
-                x = r.randint(1,len(ch)-1)
+                x = random.randint(1,len(ch)-1)
                 num.append(ch[x])
                 ch = ch[:x]+ch[x+1:]
             vis = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
@@ -1586,7 +1565,7 @@ ax² + bx + c = 0''')
                 nownum = (rw-1)*4+c
                 if nownum == corr:
                     break
-                x = cl[r.randint(1,len(cl)-1)]
+                x = cl[random.randint(1,len(cl)-1)]
                 print()
                 print('-====================-')
                 print('编号:',num[nownum])
@@ -1606,7 +1585,7 @@ ax² + bx + c = 0''')
             print('欢迎来到rπの冒险小游戏！你是rπ，一名很普通的中学生，2021年你打算在校内来一场冒险。')
             dates = ['','6月28日','6月29日','6月30日','6月31日(忘了提醒你，rπ可不会数数)','7月0日(看来rπ好像没有生活常识)','7月1日','7月2日','7月3日','7月4日','7月5日']
             names = ['能量','幻听の力','金钱','攻击']
-            data = [r.randint(60,80),r.randint(50,75),r.randint(100,320),r.randint(60,80)]
+            data = [random.randint(60,80),random.randint(50,75),random.randint(100,320),random.randint(60,80)]
             day = 0
             score = 20
             while day < 10:
@@ -1622,7 +1601,7 @@ ax² + bx + c = 0''')
                 if ch == '1':
                     print('你遇见了一位同学，准备开始幻听...')
                     print('———— 嘿，你叫我"luogu"!?(注：真实事件未经改编)')
-                    if data[1] >= r.randint(data[1]-10,87):
+                    if data[1] >= random.randint(data[1]-10,87):
                         print('———— 啊，不是，这个...')
                         print('你成功了！')
                         print('能量-3')
@@ -1641,7 +1620,7 @@ ax² + bx + c = 0''')
                 elif ch == '2':
                     print('你看见了一位你的仇人，准备开始欺负...')
                     print('你凑了过去，一把拉住他，向他要钱...')
-                    if data[3] >= r.randint(data[3]-10,92):
+                    if data[3] >= random.randint(data[3]-10,92):
                         print('———— 啊啊啊啊啊啊啊啊啊')
                         print('你成功了！')
                         print('能量-3')
@@ -1683,7 +1662,7 @@ ax² + bx + c = 0''')
                 Settings.ask_and_update_single_settings(i)
             Settings.store_settings()
         elif m == '43':
-            Settings.settings = [nowin,1,-1,0.6,'anonymous']
+            Settings.settings = [1,0.6,'anonymous']
             Settings.store_settings()
         elif m == '44':
             score = 0
@@ -1697,7 +1676,7 @@ ax² + bx + c = 0''')
             dx = [-1,0,1,0]
             dy = [0,-1,0,1]
             while True:
-                clear()
+                crossplatform.clear()
                 ok = 0
                 for i in range(4):
                     for j in range(4):
@@ -1706,12 +1685,12 @@ ax² + bx + c = 0''')
                 if not ok:
                     print('游戏结束，得分:',score)
                     break
-                x = r.randint(0,3)
-                y = r.randint(0,3)
+                x = random.randint(0,3)
+                y = random.randint(0,3)
                 while mp[x][y] != 0:
-                    x = r.randint(0,3)
-                    y = r.randint(0,3)
-                mp[x][y] = 2-int(r.randint(0,22)!=0);
+                    x = random.randint(0,3)
+                    y = random.randint(0,3)
+                mp[x][y] = 2-int(random.randint(0,22)!=0);
                 for i in range(4):
                     for j in range(4):
                         print(chr(mp[i][j]+ord('@')),end='')
@@ -1769,23 +1748,23 @@ ax² + bx + c = 0''')
             show(tm)
         elif m == '46':
             print('P O T S')
-            a = r.randint(3,12)
+            a = random.randint(3,12)
             b = a
             while b%a  == 0 or a%b == 0 or gcd(a,b) != 1:
-                b = r.randint(3,12)
+                b = random.randint(3,12)
             a0,b0 = a,b
             a,b = 0,0
             c = a0
             while c == a0 or c == b0 or c == abs(a0-b0):
-                c = r.randint(2,max(a0,b0)-1)
+                c = random.randint(2,max(a0,b0)-1)
             while a != c and b != c:
                 print('%d/%d %d/%d --> %d'%(a,a0,b,b0,c))
-                op = input('[s]swap,[q]fill,[r]drop,[t]pour,[n]quit:')
+                op = input('[s]swap,[q]fill,[random]drop,[t]pour,[n]quit:')
                 if op == 's':
                     a,b,a0,b0 = b,a,b0,a0;
                 if op == 'q':
                     a = a0
-                if op == 'r':
+                if op == 'random':
                     a = 0
                 if op == 't':
                     t = min(a,b0-b)
@@ -1870,7 +1849,7 @@ ax² + bx + c = 0''')
                 s = input('请输入:')
                 key = ''
                 for i in range(len(s)):
-                    key += chr(ord('a')+r.randint(0,15))
+                    key += chr(ord('a')+random.randint(0,15))
                 print('你的密码是 '+key)
                 outp = ''
                 for i in range(len(s)):
@@ -1894,13 +1873,13 @@ ax² + bx + c = 0''')
             s = 'https://www.luogu.com.cn/api/team/downloadFile/'+s
             webbrowser.open(s)
         elif m == '49':
-            n = r.randint(1,100)
+            n = random.randint(1,100)
             ls = [0]
             for i in range(100):
                 if abs(n-i-1) <= 10:
                     ls.append(0)
                 else:
-                    ls.append(int(r.randint(0,2)>0))
+                    ls.append(int(random.randint(0,2)>0))
             for i in range(100):
                 if ls[i+1] == 0:
                     if isprimebad(abs(i+1-n)):
@@ -1925,8 +1904,8 @@ ax² + bx + c = 0''')
         elif m == '50':
             print('数学老师狂喜')
             for i in range(5):
-                a,b = r.randint(1,6),r.randint(1,6)*(int(r.randint(0,1)>1)*2-1)
-                c,d = r.randint(1,6),r.randint(1,6)*(int(r.randint(0,1)>1)*2-1)
+                a,b = random.randint(1,6),random.randint(1,6)*(int(random.randint(0,1)>1)*2-1)
+                c,d = random.randint(1,6),random.randint(1,6)*(int(random.randint(0,1)>1)*2-1)
                 q,w,e = a*c,a*d+b*c,b*d
                 print('(ax+b)(cx+d) = %dx2 + %dx + %d'%(q,w,e))
                 aa,bb,cc,dd = int(input('a?')),int(input('b?')),int(input('c?')),int(input('d?'))
@@ -1936,7 +1915,7 @@ ax² + bx + c = 0''')
                     print('WA')
                     print('Correct Answer:',a,b,c,d)
         elif m == '51':
-            s = Settings.settings[4]
+            s = Settings.settings[2]
             k = 0
             for i in s:
                 k += ord(i)
@@ -1986,7 +1965,7 @@ ax² + bx + c = 0''')
                 print()
                 print(tim)
         elif m == '59':
-            clear()
+            crossplatform.clear()
         elif m == '2293':
             shf = 1
             print('好像发生了一些事情……')
@@ -1998,18 +1977,18 @@ ax² + bx + c = 0''')
         else:
             print('输入无效')
         print()
-        tm.sleep(Settings.settings[3])
+        tm.sleep(Settings.settings[1])
         input('请按回车继续')
-        clear()
+        crossplatform.clear()
 
 if __name__=='__main__':
     print(COPYRIGHT)
     while True:
-        clear()
+        crossplatform.clear()
         try:
            main()
         except Exception:
-            if not Settings.settings[1]:
+            if not Settings.settings[0]:
                 traceback.print_exc()
                 break
             
