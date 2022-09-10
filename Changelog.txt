@@ -1,2 +1,6 @@
 [0.0.1-Rewrite-Dev1]
 抽出crossplatform.py，提供更好的跨平台支持。
+
+清理设置模块
+
+更多小更改
