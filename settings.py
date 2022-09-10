@@ -31,7 +31,7 @@ class Settings(object):
         idx-=1
         print(cls.name[idx])
         print('目前状态:',cls.settings[idx])
-        if idx!=2: cls.settings[idx] = input('输入新值:')
+        if idx==2: cls.settings[idx] = input('输入新值:')
         else: cls.settings[idx] = int(input('输入新值:'))
         
 
