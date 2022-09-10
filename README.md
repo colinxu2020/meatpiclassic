@@ -7,6 +7,7 @@ Meatpi Official Repository
 ## 版权声明
 
 Copyright © 2020-2022 a9754610_team. All rights reserved.
+
 具体协议内容请查看 LICENSE 文件。
 
 > 第五十一条　未经权利人许可，不得进行下列行为：
