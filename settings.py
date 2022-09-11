@@ -1,13 +1,14 @@
 import json
 
 
-PACKED=0
+PACKED=1
+
+if PACKED:
+    config_path='%USERPROFILE%\\Meatpi_Settings.json'
+else:
+    config_path='Meatpi_Settings.json'
 
 class Settings(object):
-    if PACKED:
-        config_path='USERPROFILE\\Meatpi_Settings.json'
-    else:
-        config_path='Meatpi_Settings.json'
     
     @classmethod
     def load_settings(cls: type) -> None:
