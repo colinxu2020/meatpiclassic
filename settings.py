@@ -1,15 +1,22 @@
 import json
 
 
+PACKED=0
+
 class Settings(object):
+    if PACKED:
+        config_path='USERPROFILE\\Meatpi_Settings.json'
+    else:
+        config_path='Meatpi_Settings.json'
+    
     @classmethod
     def load_settings(cls: type) -> None:
-        with open('Meatpi_Settings.json', 'r') as fp:
+        with open(config_path, 'r') as fp:
             cls.settings=json.load(fp)
             
     @classmethod
     def store_settings(cls: type) -> None:
-        with open('Meatpi_Settings.json', 'w') as fp:
+        with open(config_path, 'w') as fp:
             json.dump(cls.settings, fp)
             
     @classmethod
