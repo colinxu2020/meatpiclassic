@@ -1,10 +1,11 @@
 import json
+import os
 
 
 PACKED=1
 
 if PACKED:
-    config_path='%USERPROFILE%\\Meatpi_Settings.json'
+    config_path=f'{os.environ["USERPROFILE"]}\\Meatpi_Settings.json'
 else:
     config_path='Meatpi_Settings.json'
 
