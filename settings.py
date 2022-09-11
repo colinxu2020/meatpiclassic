@@ -26,7 +26,7 @@ class Settings(object):
             cls.load_settings()
         except FileNotFoundError:
             cls.settings = cls.ask_settings()
-            cls.update_settings()
+            cls.store_settings()
 
     name = ['报错重启','功能时差','用户名']
     
