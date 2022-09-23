@@ -1657,12 +1657,11 @@ ax² + bx + c = 0''')
             tm.sleep(0.8)
             print('...')
         elif m == '42':
-            n = len(Settings.settings)
-            for i in range(n):
+            for i in Settings.name:
                 Settings.ask_and_update_single_settings(i)
             Settings.store_settings()
         elif m == '43':
-            Settings.settings = [1,0.6,'anonymous']
+            Settings.settings = Settings.ask_settings()
             Settings.store_settings()
         elif m == '44':
             score = 0
@@ -1977,7 +1976,7 @@ ax² + bx + c = 0''')
         else:
             print('输入无效')
         print()
-        tm.sleep(Settings.settings[1])
+        tm.sleep(Settings.settings['delay'])
         input('请按回车继续')
         crossplatform.clear()
 
@@ -1988,7 +1987,7 @@ if __name__=='__main__':
         try:
            main()
         except Exception:
-            if not Settings.settings[0]:
+            if not Settings.settings['auto_restart']:
                 traceback.print_exc()
                 break
             
