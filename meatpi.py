@@ -312,13 +312,11 @@ True  是
 False  否
 abs()  绝对值''')
             try:
-                q = input('请输入算式（不带=）：')
-                q_ev = int(q)
-                print('答案是：',q_ev)
+                print('答案是：', eval(input('请输入算式（不带=）：')))
             except ZeroDivisionError:
                 print('算式中含有除以0，无法计算')
             except SyntaxError:
-                    print('无法计算')
+                print('无法计算')
         elif m == '02':
             while True:
                 inp = input('''1.输出一到几以内的质数
