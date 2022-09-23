@@ -42,16 +42,7 @@ class Settings(object):
         return {
             'auto_restart':int(input('是否启用报错自动重启？')),
             'delay':float(input('请输入功能时差：')),
-            'username':input('请输入用户名:')
+            'username':input('请输入用户名:'),
+            'version':1
         }
-        
-    @classmethod
-    def ask_and_update_single_settings(cls, name) -> None:
-        print(cls.name[name])
-        print('目前状态:',cls.settings[name])
-        if idx==2: cls.settings[name] = input('输入新值:')
-        if idx==1: cls.settings[name] = float(input('输入新值:'))
-        else: cls.settings[name] = int(input('输入新值:'))
-        
-
         

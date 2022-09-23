@@ -251,8 +251,8 @@ def main():
 ---> 36.作者的话
 ---> 37.上网
 ---> 39.坑碟游戏解析
----> 42.设置
----> 43.恢复出厂设置
+---> 42.已停用
+---> 43.修改配置
 ---> 45.meatπ题解库(已废)
 ---> 47.真·加密和解密(安全版)
 ---> 48.下载洛谷文件
@@ -1656,10 +1656,6 @@ ax² + bx + c = 0''')
             print('a97写下了这段代码...')
             tm.sleep(0.8)
             print('...')
-        elif m == '42':
-            for i in Settings.name:
-                Settings.ask_and_update_single_settings(i)
-            Settings.store_settings()
         elif m == '43':
             Settings.settings = Settings.ask_settings()
             Settings.store_settings()
