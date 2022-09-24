@@ -5,7 +5,7 @@ import categorybase as base
 
 
 def load(obj: type):
-    mro=list(obj.__mro__)[1:-1][::-1]
+    mro=list(obj.__mro__)[:-1][::-1]
     if mro[0]!=base.BaseCategory:
         raise TypeError
     del mro[0]
@@ -19,8 +19,6 @@ def load(obj: type):
         except ValueError:
             cur.childrens.append(base.Node(i, []))
             cur=cur.childrens[-1]
-    
-    cur.childrens.append(base.Node(obj.__mro__[0], []))
     
 def _search(path):
     for i in path.glob('*'):

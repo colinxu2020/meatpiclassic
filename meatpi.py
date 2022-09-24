@@ -7,6 +7,8 @@ import keyword
 
 from settings import Settings
 import crossplatform
+import categorymgr as cgmgr
+import categorybase as cgbase
 	
 
 COPYRIGHT= 'Copyright(c) 2022 dgncx Org.\nAll Rights Reserved.\n\n'
@@ -205,8 +207,24 @@ def main():
     shf = 0
     do21 = 0
     ss = '未设置数据'
+    cgmgr.search()
     while True:
-        run52 = 0
+        cur=cgbase.root
+        while cur.childrens:
+            print('本级别功能列表：')
+            for idx,itm in enumerate(cur.childrens):
+                print(idx,': ',itm.cur.__doc__)
+            cur=cur.childrens[int(input('请选择：'))]
+        cur=cur.cur
+        for idx,itm in enumerate(dir(cur)):
+            if isinstance(getattr(cur,itm),cgbase.CategoryMetaClass):
+                print(idx,': ',getattr(cur,itm).__doc__)
+        cur=getattr(cur,dir(cur)[int(input('请选择：'))])
+        
+        cur()
+            
+        
+        """        run52 = 0
         print('*^'*36+'*')
         print('<',tm.asctime(tm.localtime(tm.time())),'>')
         print('欢迎使用PSCCO的meatπ ————a97')
@@ -1970,6 +1988,7 @@ ax² + bx + c = 0''')
                 print('太臭了把程序臭死了',end='')
         else:
             print('输入无效')
+        """
         print()
         tm.sleep(Settings.settings['delay'])
         input('请按回车继续')
