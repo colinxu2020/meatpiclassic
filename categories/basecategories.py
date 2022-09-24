@@ -9,3 +9,10 @@ class Tools(base.BaseCategory):
     
 class Games(base.BaseCategory):
     """小游戏"""
+    
+class Prime(Math):
+    """质数相关功能"""
+    
+class Encrypt(Math):
+    """加解密功能"""
+    
