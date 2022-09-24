@@ -2,7 +2,7 @@ import json
 import os
 
 
-PACKED=0
+PACKED=1
 
 if PACKED:
     config_path=f'{os.environ["USERPROFILE"]}\\Meatpi_Settings.json'
