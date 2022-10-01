@@ -4,6 +4,7 @@ import webbrowser
 import traceback
 import math
 import keyword
+import types
 
 from settings import Settings
 import crossplatform
@@ -210,16 +211,23 @@ def main():
     cgmgr.search()
     while True:
         cur=cgbase.root
-        while cur.childrens:
+        while isinstance(cur,cgbase.Node):
             print('本级别功能列表：')
+            subclasscount=len(cur.childrens)
             for idx,itm in enumerate(cur.childrens):
                 print(idx,': ',itm.cur.__doc__)
-            cur=cur.childrens[int(input('请选择：'))]
-        cur=cur.cur
-        for idx,itm in enumerate(dir(cur)):
-            if isinstance(getattr(cur,itm),cgbase.CategoryMetaClass):
-                print(idx,': ',getattr(cur,itm).__doc__)
-        cur=getattr(cur,dir(cur)[int(input('请选择：'))])
+            idx=0
+            rawidxmap={}
+            for rawidx,itm in enumerate(dir(cur.cur)):
+                if isinstance(getattr(cur.cur,itm),types.FunctionType) and not itm.startswith('_'):
+                    print(subclasscount+idx,': ',getattr(cur.cur,itm).__doc__)
+                    rawidxmap[idx]=rawidx
+                    idx+=1
+            inp=int(input('请选择：'))
+            if inp<subclasscount:
+                cur=cur.childrens[inp]
+            else:
+                cur=getattr(cur.cur,dir(cur.cur)[rawidxmap[inp-subclasscount]])
         
         cur()
             
