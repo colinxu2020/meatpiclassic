@@ -4,9 +4,12 @@ import webbrowser
 import traceback
 import math
 import keyword
+import types
 
 from settings import Settings
 import crossplatform
+import categorymgr as cgmgr
+import categorybase as cgbase
 	
 
 COPYRIGHT= 'Copyright(c) 2022 dgncx Org.\nAll Rights Reserved.\n\n'
@@ -205,8 +208,31 @@ def main():
     shf = 0
     do21 = 0
     ss = '未设置数据'
+    cgmgr.search()
     while True:
-        run52 = 0
+        cur=cgbase.root
+        while isinstance(cur,cgbase.Node):
+            print('本级别功能列表：')
+            subclasscount=len(cur.childrens)
+            for idx,itm in enumerate(cur.childrens):
+                print(idx,': ',itm.cur.__doc__)
+            idx=0
+            rawidxmap={}
+            for rawidx,itm in enumerate(dir(cur.cur)):
+                if isinstance(getattr(cur.cur,itm),types.FunctionType) and not itm.startswith('_'):
+                    print(subclasscount+idx,': ',getattr(cur.cur,itm).__doc__)
+                    rawidxmap[idx]=rawidx
+                    idx+=1
+            inp=int(input('请选择：'))
+            if inp<subclasscount:
+                cur=cur.childrens[inp]
+            else:
+                cur=getattr(cur.cur,dir(cur.cur)[rawidxmap[inp-subclasscount]])
+        
+        cur()
+            
+        
+        """        run52 = 0
         print('*^'*36+'*')
         print('<',tm.asctime(tm.localtime(tm.time())),'>')
         print('欢迎使用PSCCO的meatπ ————a97')
@@ -1970,6 +1996,7 @@ ax² + bx + c = 0''')
                 print('太臭了把程序臭死了',end='')
         else:
             print('输入无效')
+        """
         print()
         tm.sleep(Settings.settings['delay'])
         input('请按回车继续')
