@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import dataclasses
+import types
 
 @dataclasses.dataclass
 class Node:
@@ -15,7 +16,13 @@ class Node:
                  
     
 class CategoryMetaClass(type):
-    pass
+    def __new__(cls,name,bases,attrs):
+        attrs['__functions__']=[]
+        for itm in attrs.values():
+             if isinstance(itm,types.FunctionType):
+                 attrs['__functions__'].append(itm)
+        obj=type.__new__(cls, name,bases,attrs)
+        return obj
     
 class BaseCategory(object, metaclass=CategoryMetaClass):
     pass

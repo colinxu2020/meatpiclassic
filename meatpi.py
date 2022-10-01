@@ -217,15 +217,19 @@ def main():
             for idx,itm in enumerate(cur.childrens):
                 print(idx,': ',itm.cur.__doc__)
             idx=0
-            rawidxmap={}
+            rawidxmap=[]
             for rawidx,itm in enumerate(dir(cur.cur)):
-                if isinstance(getattr(cur.cur,itm),types.FunctionType) and not itm.startswith('_'):
+                if isinstance(getattr(cur.cur,itm),types.FunctionType) and not itm.startswith('_') and getattr(cur.cur,itm) in cur.cur.__functions__:
                     print(subclasscount+idx,': ',getattr(cur.cur,itm).__doc__)
-                    rawidxmap[idx]=rawidx
+                    rawidxmap.append(rawidx)
                     idx+=1
             inp=int(input('请选择：'))
             if inp<subclasscount:
                 cur=cur.childrens[inp]
+            elif inp>=subclasscount+len(rawidxmap):
+                print('输入无效')
+                tm.sleep(Settings.settings['delay'])
+                return
             else:
                 cur=getattr(cur.cur,dir(cur.cur)[rawidxmap[inp-subclasscount]])
         
