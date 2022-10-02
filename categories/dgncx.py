@@ -12,7 +12,7 @@ class Dgncx(base.BaseCategory):
         dgncx.calculator()
     def game():
         """游戏"""
-        dgncx.calculator()
+        dgncx.game()
     def solution():
         """题解"""
         dgncx.solution()
