@@ -7,7 +7,7 @@ import categorybase as base
 def load(obj: type):
     mro=list(obj.__mro__)[:-1][::-1]
     if mro[0]!=base.BaseCategory:
-        raise TypeError
+        return
     del mro[0]
         
     cur=base.root

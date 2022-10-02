@@ -172,6 +172,3 @@ class Prime(Math):
         else:
             print('是质数')
         
-    
-class Encrypt(Math):
-    """加解密功能"""

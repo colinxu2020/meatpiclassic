@@ -72,22 +72,6 @@ def gcd(a,b):
         return gcd(b,a%b)
 
 
-def fff(n,x):
-    a=['0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F']
-    b=[]
-    while True:
-        s=n//x
-        y=n%x
-        b=b+[y]
-        if s==0:
-            break
-        n=s
-    b.reverse()
-    res = ''
-    for i in b:
-        res += a[i]
-    return res
-
 
 def ins(s,key):
     s2 = fff(int(s),3)
