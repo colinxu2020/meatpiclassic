@@ -21,10 +21,6 @@ crossplatform.clear()
 tm.sleep(Settings.settings['delay'])
 
 
-def badfunction(k):
-    for i in range(2,k):
-        if k%i == 0:
-            return i
 
 def isprimebad(k):
     if k==1:
@@ -199,15 +195,15 @@ def main():
             print('本级别功能列表：')
             subclasscount=len(cur.childrens)
             for idx,itm in enumerate(cur.childrens):
-                print(idx,': ',itm.cur.__doc__)
+                print(1+idx,': ',itm.cur.__doc__)
             idx=0
             rawidxmap=[]
             for rawidx,itm in enumerate(dir(cur.cur)):
                 if isinstance(getattr(cur.cur,itm),types.FunctionType) and not itm.startswith('_') and getattr(cur.cur,itm) in cur.cur.__functions__:
-                    print(subclasscount+idx,': ',getattr(cur.cur,itm).__doc__)
+                    print(1+subclasscount+idx,': ',getattr(cur.cur,itm).__doc__)
                     rawidxmap.append(rawidx)
                     idx+=1
-            inp=int(input('请选择：'))
+            inp=int(input('请选择：'))-1
             if inp<subclasscount:
                 cur=cur.childrens[inp]
             elif inp>=subclasscount+len(rawidxmap):
@@ -533,7 +529,7 @@ abs()  绝对值''')
         elif m == '09':
             ri = 0
             ttime = 0
-            q = int(input('一共要多少道题？'))
+			
             for cd in [3,2,1]:
                 print(cd)
                 tm.sleep(Settings.settings['delay'])
@@ -2000,4 +1996,4 @@ if __name__=='__main__':
             if not Settings.settings['auto_restart']:
                 traceback.print_exc()
                 break
-            
+				
