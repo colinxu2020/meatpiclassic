@@ -98,21 +98,22 @@ ax² + bx + c = 0''')
             
     def calc_pi():
         """算π"""
-        n=int(input('精度：'))
-        t=n+10
-        b=10**t
-        x1=b*4//5
-        x2=b//-239
-        s=x1+x2
-        n*=2
-        for i in range(3,n,2):
-            x1//=-25
-            x2//=-57121
-            x=(x1+x2)//i
-            s+=x
-        pai=s*4
-        pai//=10**10
-        print('3.'+str(pai)[1:])
+        digits=int(input('精度：'))
+        digits*=2
+        one=10**digits
+        k=1
+        ak=one
+        asum=one
+        bsum=0
+        while ak:
+            ak=24 * ak * -(6*k-5) * (2*k-1) * (6*k-1) // ((k * 640320) ** 3)
+            asum+=ak
+            bsum+=k*ak
+            k+=1
+        
+        denominator = 13591409 * asum + 545140134 * bsum
+        numerator = 426880 * one * math.isqrt(10005 * one)
+        print('3.'+str(numerator // denominator)[1:])
         
     def calc_avaerage():
         """算平均数"""

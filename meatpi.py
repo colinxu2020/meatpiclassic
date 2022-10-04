@@ -184,11 +184,11 @@ def playhf(tm):
 
 
 def main():
-    crossplatform.winsound.Beep(375,375)
+    crossplatform.winsound.Beep(400,600)
     shf = 0
     do21 = 0
     ss = '未设置数据'
-    cgmgr.search()
+    cgmgr.search()/
     while True:
         cur=cgbase.root
         while isinstance(cur,cgbase.Node):
@@ -1988,6 +1988,7 @@ ax² + bx + c = 0''')
 
 if __name__=='__main__':
     print(COPYRIGHT)
+    print('meatπ 3周年倒计时:',int(1690350180-tm.time()))
     while True:
         crossplatform.clear()
         try:
