@@ -12,7 +12,7 @@ import categorymgr as cgmgr
 import categorybase as cgbase
 	
 
-COPYRIGHT= 'Copyright(c) 2022 dgncx Org.\nAll Rights Reserved.\n\n'
+COPYRIGHT= 'Copyright© 2020-2022 dgncx Org.\nCopyright© 2020-2022 a9754610_team.\nAll Rights Reserved.\n\n'
         
 print('\nInitializing your personal settings...')
     
