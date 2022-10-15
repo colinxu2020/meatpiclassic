@@ -173,3 +173,17 @@ class Prime(Math):
         else:
             print('是质数')
         
+    def sqrt():
+        """无理数开平方"""
+        s = int(input('请输入该无理数的平方(例:阿姆斯特朗常数为242): '))
+        e = int(input('精度: '))
+        ei = 0
+        x = int(s**0.5)
+        print(x, end='.')
+        while ei < e:
+            ei, s, x = ei + 1, s * 100, x * 10
+            while x**2 <= s:
+                x += 1
+            x -= 1
+            print(x % 10, end='')
+            

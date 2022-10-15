@@ -512,3 +512,51 @@ class Games(base.BaseCategory):
     def 数学骗子():
         """数学骗子（彩蛋）"""
         webbrowser.open('https://mathsolver.microsoft.com/zh/quiz/15xukb54z?ref=s')
+        
+    def fj_phone():
+        """FJ的手表"""
+        modes = []
+            
+        for i in range(14):
+            modes.append(random.randint(0, 3))
+        
+        def op66(x, y, dopr):
+            cor = []
+            nums66=[1,1,1,0,1,1,1]
+            for i in range(7):
+                cor.append(nums66[x][i])
+            for i in range(7):
+                cor.append(nums66[y][i])
+            for i in range(14):
+                if modes[i] == 1:
+                    cor[i] = 1
+                if modes[i] == 2:
+                    cor[i] = 0
+                if modes[i] == 3:
+                    cor[i] = 1 - cor[i]
+            ch1 = lambda x: int(cor[x]) * '_' + (1 - int(cor[x])) * ' '
+            ch2 = lambda x: int(cor[x]) * '|' + (1 - int(cor[x])) * ' '
+            if dopr:
+                print(' ' + ch1(0) + '   ' + ch1(7))
+                print(ch2(1) + ch1(3) + ch2(2) + ' ' + ch2(8) + ch1(10) + ch2(9))
+                print(ch2(4) + ch1(6) + ch2(5) + ' ' + ch2(11) + ch1(13) + ch2(12))
+            return cor
+            
+        for i in [5, 4, 3, 2, 1, 0]:
+            for j in [5, 4, 3, 2, 1, 0]:
+                crossplatform.clear()
+                print(i,j,sep=='')
+                time.sleep(1)
+        x, y = random.randint(6, 9), random.randint(6, 9)
+        clear()
+        res = op66(x, y, 1)
+        print()
+        resi = int(input('What is this number?'))
+        xi = resi // 10
+        yi = resi % 10
+        if res == op66(xi, yi, 0):
+            print('correct!')
+        else:
+            print('wrong... the answer is', x * 10 + y)
+    
+    
