@@ -1,41 +1,39 @@
 import json
 import os
 
+import datautil
+
 
 PACKED=0
 
 if PACKED:
-    config_path=f'{os.environ["USERPROFILE"]}\\Meatpi_Settings.json'
+    config_path=f'{os.environ["USERPROFILE"]}\\meatpi_settings.db'
 else:
-    config_path='Meatpi_Settings.json'
+    config_path='settings.db'
 
 class Settings(object):
     
     @classmethod
     def load_settings(cls: type) -> None:
-        with open(config_path, 'r') as fp:
-            cls.settings=json.load(fp)
-        if not isinstance(cls.settings,dict) or cls.settings.get('version',0)<1:
-            raise FileNotFoundError
+        # 这个函数为了向下兼容被保留
+        pass
             
     @classmethod
     def store_settings(cls: type) -> None:
-        with open(config_path, 'w') as fp:
-            json.dump(cls.settings, fp)
+        # 这个函数为了向下兼容被保留
+        pass
             
     @classmethod
     def init_settings(cls: type) -> None:
-        try:
-            cls.load_settings()
-        except FileNotFoundError:
+        if cls.settings.get('version',0)<1:
             cls.settings = cls.ask_settings()
-            cls.store_settings()
 
     name = {
         'auto_restart':'报错重启',
         'delay':'功能时差',
         'username':'用户名'
      }
+    settings = datautil.SyncDict(config_path)
     
     @staticmethod
     def ask_settings() -> list:

@@ -55,6 +55,12 @@ class SyncDict(object):
     def __getitem__(self,key):
         return self._dict[key]
         
+    def get(self,key,default):
+        try:
+            return self[key]
+        except KeyError:
+            return default        
+
     def close(self):
         self.fileobject.close()
         

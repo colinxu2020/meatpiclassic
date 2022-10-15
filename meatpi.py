@@ -188,7 +188,7 @@ def main():
     shf = 0
     do21 = 0
     ss = '未设置数据'
-    cgmgr.search()/
+    cgmgr.search()
     while True:
         cur=cgbase.root
         while isinstance(cur,cgbase.Node):
