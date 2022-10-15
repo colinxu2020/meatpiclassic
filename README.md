@@ -7,7 +7,7 @@ Meatpi Official Repository
 
 - 删除DGNCX相关功能（删除categories\dgncx.py），程序会自动适配。
 - 更新到3.10
-- 前往[https://github.com/colinxu2020/dgncx-pyext](开源仓库)自行构建对应Python版本的扩展。
+- 前往[开源仓库](https://github.com/colinxu2020/dgncx-pyext)自行构建对应Python版本的扩展。
 
 
 ## 版权声明
