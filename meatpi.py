@@ -1997,4 +1997,4 @@ if __name__=='__main__':
             if not Settings.settings['auto_restart']:
                 traceback.print_exc()
                 break
-				
+    Settings.settings.close()
