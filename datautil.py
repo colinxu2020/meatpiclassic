@@ -11,7 +11,8 @@ import collections
 # --- 基础pickle功能 --- #
 
 def dumps(obj):
-    return pickletools.optimize(pickle.dumps(obj))
+    #return pickletools.optimize(pickle.dumps(obj))
+    return pickle.dumps(obj)
 
 def dump(fp,obj):
     fp.write(dumps(obj))
@@ -27,11 +28,15 @@ def load(fp):
 class SyncDict(object):
     """基于这个类创建的字典会自动与对应文件同步，用完以后记得调用close()。"""
     def store(self):
-        self.reflush_fileobject()
+        print(self._dict)
+        input('Enter to continue...')
         dump(self.fileobject,self._dict)
+        self.fileobject.flush()
+        self.reflush_fileobject()
         
     def reflush_fileobject(self):
-        self.fileobject.truncate()
+        self.fileobject.close()
+        self.fileobject=open(self.filename,'wb')
     
     def __init__(self,filename):
         tmpdict={}
@@ -39,13 +44,13 @@ class SyncDict(object):
             fileobject=open(filename,'rb')
             tmpdict=load(fileobject)
             fileobject.close()
+            print(tmpdict)
         except FileNotFoundError:
             pass
         fileobject=open(filename,"wb")
         self.filename=filename
         self.fileobject=fileobject
         self._dict=tmpdict
-        self.reflush_fileobject()
         self.store()
         
     def __setitem__(self,key,value):
