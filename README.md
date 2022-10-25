@@ -1,12 +1,14 @@
 # meatpi
 Meatpi Official Repository
 
-临时缓存meatpi代码，保留所有权利。
+Meatpi代码，保留所有权利。
+
+Meatpi中内置了适用于Python3.10，Python3.11的DGNCX扩展，Python3.10扩展不再维护，将在下一次dgncx更新时删除。
 
 注意：如果使用Python3.10以下的版本加载Meatpi会出现故障，修复方法如下：
 
 - 删除DGNCX相关功能（删除categories\dgncx.py），程序会自动适配。
-- 更新到3.10
+- 更新到Python3.10
 - 前往[开源仓库](https://github.com/colinxu2020/dgncx-pyext)自行构建对应Python版本的扩展。
 
 
