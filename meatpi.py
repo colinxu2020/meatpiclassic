@@ -1997,4 +1997,8 @@ if __name__=='__main__':
             if not Settings.settings['auto_restart']:
                 traceback.print_exc()
                 break
+        except BaseException:
+            traceback.print_exc()
+            break
+    print(Settings.settings)
     Settings.settings.close()

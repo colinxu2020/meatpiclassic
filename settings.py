@@ -26,7 +26,8 @@ class Settings(object):
     @classmethod
     def init_settings(cls: type) -> None:
         if cls.settings.get('version',0)<1:
-            cls.settings = cls.ask_settings()
+            cls.settings._dict = cls.ask_settings()
+            cls.settings.store()
 
     name = {
         'auto_restart':'报错重启',
@@ -36,7 +37,7 @@ class Settings(object):
     settings = datautil.SyncDict(config_path)
     
     @staticmethod
-    def ask_settings() -> list:
+    def ask_settings() -> dict:
         return {
             'auto_restart':int(input('是否启用报错自动重启？')),
             'delay':float(input('请输入功能时差：')),
