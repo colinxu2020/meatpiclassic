@@ -1,3 +1,4 @@
+# 无法独立使用，建议配合IPython等成熟的REPL进行操作
 import socket
 import pickle
 import enum
@@ -100,7 +101,6 @@ class VarsManger():
         
 
 class ReplClient():
-    # 无法独立使用，建议配合IPython等成熟的REPL进行操作
     def __init__(self, address, port):
         self.sock=socket.socket()
         self.sock.connect((address,port))
