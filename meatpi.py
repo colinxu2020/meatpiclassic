@@ -6,6 +6,7 @@ import math
 import keyword
 import types
 import datetime
+import reprlib
 
 from settings import Settings
 import crossplatform
@@ -205,9 +206,11 @@ def main():
                     rawidxmap.append(rawidx)
                     idx+=1
             inp=int(input('请选择：'))-1
-            if inp<subclasscount:
+            if inp==-1:
+                print('正在启动Meatpi调试控制台...')
+            elif inp<subclasscount:
                 cur=cur.childrens[inp]
-            elif inp>=subclasscount+len(rawidxmap):
+            elif inp>=subclasscount+len(rawidxmap):	
                 print('输入无效')
                 tm.sleep(Settings.settings['delay'])
                 return
