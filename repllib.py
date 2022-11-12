@@ -110,4 +110,9 @@ class ReplClient():
         self.sock.send(pickle.dumps(ExecCommandMessage(command)))
         return parse_resp(pickle.loads(self.sock.recv(8192)))
         
+    def close_server(self):
+        self.sock.send(pickle.dumps(SpecialMessage.closeconnect))
+        
+    def close(self):
+        self.sock.close()
     

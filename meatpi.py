@@ -6,11 +6,11 @@ import math
 import keyword
 import types
 import datetime
-import reprlib
 
 from settings import Settings
 import crossplatform
 import categorymgr as cgmgr
+import repllib
 import categorybase as cgbase
 	
 
@@ -207,7 +207,14 @@ def main():
                     idx+=1
             inp=int(input('请选择：'))-1
             if inp==-1:
-                print('正在启动Meatpi调试控制台...')
+                print('已启动Meatpi调试控制台')
+                print('请使用repllib关闭调试控制台')
+                print('请在任何REPL中导入repllib库发送调试信息')
+                repl=repllib.ReplServer(globals(),'127.0.0.1',9987)
+                try:
+                    repl.wait_forever()
+                finally:
+                    repl.close()
             elif inp<subclasscount:
                 cur=cur.childrens[inp]
             elif inp>=subclasscount+len(rawidxmap):	
@@ -2008,3 +2015,4 @@ if __name__=='__main__':
             traceback.print_exc()
             break
         crossplatform.clear()
+    
