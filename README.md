@@ -11,6 +11,8 @@ Meatpi中内置了适用于Python3.10，Python3.11的DGNCX扩展，Python3.10扩
 - 更新到Python3.10
 - 前往[开源仓库](https://github.com/colinxu2020/dgncx-pyext)自行构建对应Python版本的扩展。
 
+启动0号功能可以启动调试控制台。
+
 
 ## 版权声明
 
