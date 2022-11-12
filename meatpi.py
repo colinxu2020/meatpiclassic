@@ -5,6 +5,7 @@ import traceback
 import math
 import keyword
 import types
+import datetime
 
 from settings import Settings
 import crossplatform
@@ -1988,9 +1989,10 @@ ax² + bx + c = 0''')
 
 if __name__=='__main__':
     print(COPYRIGHT)
-    print('meatπ 3周年倒计时:',int(1690350180-tm.time()))
+    print('meatπ 3周年倒计时:',datetime.datetime.fromtimestamp(1690350180)-datetime.datetime.now())
+    
+    tm.sleep(Settings.settings['delay'])
     while True:
-        crossplatform.clear()
         try:
            main()
         except Exception:
@@ -2000,5 +2002,4 @@ if __name__=='__main__':
         except BaseException:
             traceback.print_exc()
             break
-    print(Settings.settings)
-    Settings.settings.close()
+        crossplatform.clear()
