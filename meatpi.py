@@ -1996,9 +1996,11 @@ if __name__=='__main__':
         try:
            main()
         except Exception:
+            traceback.print_exc()
             if not Settings.settings['auto_restart']:
-                traceback.print_exc()
                 break
+            else:
+                tm.sleep(Settings.settings['delay'])
         except BaseException:
             traceback.print_exc()
             break
